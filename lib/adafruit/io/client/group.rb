@@ -43,9 +43,7 @@ module Adafruit
       def send_group(group_name, data)
         if group_name
           group_name = URI::escape(group_name)
-          response = @client.post "groups/#{group_name}/send", {:value => data}
-
-          return process_response(response)
+          post "groups/#{group_name}/send", {:value => data}
         else
 
         end
@@ -54,9 +52,7 @@ module Adafruit
       def receive_group(group_name)
         if group_name
           group_name = URI::escape(group_name)
-          response = @client.get "groups/#{group_name}/last"
-
-          return process_response(response)
+          get "groups/#{group_name}/last"
         else
 
         end
@@ -65,9 +61,7 @@ module Adafruit
       def receive_next_group(group_name)
         if group_name
           group_name = URI::escape(group_name)
-          response = @client.get "groups/#{group_name}/next"
-
-          return process_response(response)
+          get "groups/#{group_name}/next"
         else
 
         end
@@ -75,18 +69,14 @@ module Adafruit
 
       def groups(feed_id_or_key, output_id=nil, options = {})
         if input_id
-          response = @client.get "groups/#{feed_id_or_key}/#{input_id}", options
+          get "groups/#{feed_id_or_key}/#{input_id}", options
         else
-          response = @client.get "groups/#{feed_id_or_key}", options
+          get "groups/#{feed_id_or_key}", options
         end
-
-        return process_response(response)
       end
 
       def create_group(feed_id_or_key, options = {})       
-        response = @client.post "groups/#{feed_id_or_key}", options
-
-        return process_response(response)
+        post "groups/#{feed_id_or_key}", options
       end
 
     end
